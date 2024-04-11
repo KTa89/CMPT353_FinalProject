@@ -6,6 +6,13 @@
 # What is the average lifespan of smartphones based on their specifications?
 
 import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+import matplotlib.pyplot as plt
+from sklearn.metrics import mean_squared_error, r2_score
+
 
 #loading the dataset and examining the structure
 df = pd.read_csv('smartphone_cleaned_v5.csv')
@@ -40,6 +47,35 @@ df['fast_charging'] = df['fast_charging'].fillna('Unknown')
 df.loc[df['extended_memory_available'] == 0, 'extended_upto'] = df.loc[df['extended_memory_available'] == 0, 'extended_upto'].fillna(0)
 
 # Check the updated summary to confirm changes
-print(df.isnull().sum())
+#print(df.isnull().sum())
 
 
+# This part of code for investigating more into what is measured under smartphone ratings. 
+#Try to find out if there is a correlation between price, tech specifications, and user ratings.
+# We can use correlation analysis and linear regression for this.
+# Distribution of user rating
+df['rating'].hist()
+plt.title('Distribution of User Ratings')
+plt.xlabel('User Ratings')
+plt.ylabel('Frequency')
+plt.savefig('distribution_of_user_rating.png')
+numeric_df =  df.select_dtypes(include=[np.number])
+corr_matrix = numeric_df.corr()
+#print(df.dtypes)
+print(corr_matrix['rating'])
+
+# 1 step further using linear regression to not only identify the relationships but also
+#quantify the impact of one or more prediction on an ourcome variable
+predictors = ['processor_speed', 'refresh_rate', 'primary_camera_front', 'price']
+target = 'rating'
+X = df[predictors]
+y = df[target]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+model = LinearRegression()
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(f'Mean Squared Error is : {mse:.2f}')
+print(f'R^2 Score is : {r2:.2f}')
