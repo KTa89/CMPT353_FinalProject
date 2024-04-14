@@ -71,7 +71,8 @@ def analyze_5g_adoption(df):
     plt.title('5G and Prices')
     plt.xlabel('Has 5G')
     plt.ylabel('Prices')
-    plt.show()
+    plt.savefig('5GPrice.png', dpi=300, bbox_inches='tight')
+    plt.close()
 
     # Simple correlation and regression analysis
     print(np.corrcoef(local_df['price'], local_df['has_5g'])[0, 1])
