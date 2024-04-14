@@ -12,6 +12,30 @@ This project analyzes smartphone data to explore and answer the following questi
 
 ## Getting Started
 
+Follow these instructions to get the project up and running on your local machine for development and tested purposes.
+
+
+### Running the Project
+
+python3 cmpt353_FinalProject.py
+
+### Expected Output
+
+Upon successful execution, the following files and console outputs will be generated as a result of various analyses conducted:
+
+- 1.	correlation_analysis.png
+- 2.	5G and Prices.png
+- 3.	linear_regression.png
+- 4.	price_comparison.png
+- 5.	rating_comparison.png
+- 6.	Console output:
+- •	Price Segment Distribution
+- •	Regression Analysis Summary
+- •	T-test Results
+- •	Model Performance Metrics
+- •	Lifespan Model Coefficients and Metrics
+
+
 ### Prerequisites
 
 This project requires the following Python libraries:
@@ -27,5 +51,3 @@ Install these packages using pip. It is recommended to use a virtual environment
 
 ```bash
 pip install pandas numpy matplotlib seaborn scikit-learn statsmodels
-
-
